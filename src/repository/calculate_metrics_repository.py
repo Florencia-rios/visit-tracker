@@ -10,13 +10,12 @@ class MetricsRepository:
 
     def locations_by_employee_id(self, employee_id):
         self.cursor.execute("""
-        SELECT *
-        FROM location l
-        JOIN property p ON l.id = p.location_fk
-        JOIN property_visit pv ON p.id = pv.property_fk
-        WHERE pv.employee_fk = ?
-        )
-        """, (employee_id,))
+            SELECT *
+            FROM location l
+            JOIN property p ON l.id = p.location_id
+            JOIN property_visits pv ON p.id = pv.property_id
+            WHERE pv.employee_id = ?
+            """, (employee_id,))
         rows = self.cursor.fetchall()
 
         locations = [ResponseLocation(id=row[0], latitude=row[1], longitude=row[2]) for row in rows]
@@ -25,27 +24,27 @@ class MetricsRepository:
 
     def visit_properties_by_employee_id(self, employee_id):
         self.cursor.execute("""
-        SELECT 
-            a.id
-            a.street,
-            a.number,
-            a.floor,
-            a.apartment,
-            a.zip_code,
-            a.locality,
-            a.country,
-            l.id
-            l.latitude,
-            l.longitude,
-            p.id,
-            p.price
-        FROM employee e
-        JOIN property_visit pv ON e.id = pv.employee_fk
-        JOIN property p ON pv.property_fk = p.id
-        JOIN address a ON p.address_fk = a.id
-        JOIN location l ON p.location_fk = l.id
-        WHERE e.id = ?
-        """, (employee_id,))
+            SELECT 
+                a.id,
+                a.street,
+                a.number,
+                a.floor,
+                a.apartment,
+                a.zip_code,
+                a.locality,
+                a.country,
+                l.id,
+                l.latitude,
+                l.longitude,
+                p.id,
+                p.price
+            FROM employee e
+            JOIN property_visits pv ON e.id = pv.employee_id
+            JOIN property p ON pv.property_id = p.id
+            JOIN address a ON p.address_id = a.id
+            JOIN location l ON p.location_id = l.id
+            WHERE e.id = ?
+            """, (employee_id,))
         rows = self.cursor.fetchall()
 
         properties = []

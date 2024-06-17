@@ -26,8 +26,8 @@ class PropertyRepository:
         self.cursor.execute("""
         CREATE TABLE IF NOT EXISTS location (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            latitude VARCHAR NOT NULL,
-            longitude VARCHAR NOT NULL
+            latitude FLOAT NOT NULL,
+            longitude FLOAT NOT NULL
         )
         """)
         self.cursor.execute("""
@@ -62,7 +62,7 @@ class PropertyRepository:
             return "Not found"
 
     def create_property(self, property: RequestProperty):
-        # TODO Refactor: antes de querer crearlo chequear si existe con el metodo get_property
+        # TODO Refactor: antes de querer crearlo chequear si existe
         self.cursor.execute("INSERT INTO address (street, number, floor, apartment, zip_code, locality, country) "
                             "VALUES (?, ?, ?, ?, ?, ?, ?)",
                             (property.address.street, property.address.number, property.address.floor,
@@ -79,19 +79,10 @@ class PropertyRepository:
         self.cursor.execute("INSERT INTO property (address_id, location_id, price) VALUES (?, ?, ?)",
                             (address_id, location_id, property.price))
         self.conn.commit()
-        property_id = self.cursor.lastrowid
+        row_id = self.cursor.lastrowid
 
-        self.cursor.execute("SELECT * FROM address WHERE id = ?", (address_id,))
-        row_created_address = self.cursor.fetchone()
-
-        self.cursor.execute("SELECT * FROM location WHERE id = ?", (location_id,))
-        row_created_location = self.cursor.fetchone()
-
-        if row_created_address and row_created_location:
-            return ResponseProperty(id=property_id,
-                                    address=ResponseAddress(**row_created_address),
-                                    location=ResponseLocation(**row_created_location),
-                                    price=property.price)
+        if row_id:
+            return f"Property with propertyId {row_id} is created"
         else:
             return "Not created"
 
@@ -112,26 +103,14 @@ class PropertyRepository:
                             (property.location.latitude, property.location.longitude, property_obtain.location.id))
         self.conn.commit()
 
-        self.cursor.execute("UPDATE property SET address_id = ?, location_id = ?, price = ? WHERE id = ?",
-                            (property.address.id, property.location.id, property.price, property_id))
+        self.cursor.execute("UPDATE property SET price = ? WHERE id = ?",
+                            (property.price, property_id))
         self.conn.commit()
 
-        self.cursor.execute("SELECT * FROM property WHERE id = ?", (property_id,))
-        row_updated_property = self.cursor.fetchone()
+        rowcount = self.cursor.rowcount
 
-        if row_updated_property:
-            return ResponseProperty(id=row_updated_property[0],
-                                    address=ResponseAddress(id=property.address.id, street=property.address.street,
-                                                            number=property.address.number,
-                                                            floor=property.address.floor,
-                                                            apartment=property.address.apartment,
-                                                            zip_code=property.address.zip_code,
-                                                            locality=property.address.locality,
-                                                            country=property.address.country),
-                                    location=ResponseLocation(id=property.location.id,
-                                                              latitude=property.location.latitude,
-                                                              longitude=property.location.longitude),
-                                    price=row_updated_property[3])
+        if rowcount != 0:
+            return f"Property with propertyId {property_id} is updated"
         else:
             return "Not updated"
 
@@ -148,7 +127,12 @@ class PropertyRepository:
         self.cursor.execute("DELETE FROM property WHERE id = ?", (property_id,))
         self.conn.commit()
 
-        return "Property deleted"
+        rowcount = self.cursor.rowcount
+
+        if rowcount != 0:
+            return f"Property with propertyId {property_id} is deleted"
+        else:
+            return "Not deleted"
 
     def close_connection(self):
         self.conn.close()

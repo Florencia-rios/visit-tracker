@@ -21,10 +21,10 @@ class ResponseAddress(BaseModel):
 
 class ResponseLocation(BaseModel):
     id: int
-    latitude: str
-    longitude: str
+    latitude: float
+    longitude: float
 
-    def __init__(self, id: int, latitude: str, longitude: str):
+    def __init__(self, id: int, latitude: float, longitude: float):
         super().__init__(id=id, latitude=latitude, longitude=longitude)
 
 

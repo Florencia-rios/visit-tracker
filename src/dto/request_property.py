@@ -12,18 +12,18 @@ class RequestAddress(BaseModel):
     locality: str
     country: str
 
-    def __init__(self, id: int, street: str, number: int, floor: int, apartment: str, zip_code: int, locality: str,
+    def __init__(self, street: str, number: int, floor: int, apartment: str, zip_code: int, locality: str,
                  country: str):
-        super().__init__(id=id, street=street, number=number, floor=floor, apartment=apartment,
+        super().__init__(street=street, number=number, floor=floor, apartment=apartment,
                          zip_code=zip_code, locality=locality, country=country)
 
 
 class RequestLocation(BaseModel):
-    latitude: str
-    longitude: str
+    latitude: float
+    longitude: float
 
-    def __init__(self, id: int, latitude: str, longitude: str):
-        super().__init__(id=id, latitude=latitude, longitude=longitude)
+    def __init__(self, latitude: float, longitude: float):
+        super().__init__(latitude=latitude, longitude=longitude)
 
 
 class RequestProperty(BaseModel):
@@ -31,5 +31,5 @@ class RequestProperty(BaseModel):
     location: RequestLocation
     price: int
 
-    def __init__(self, id: int, address: RequestAddress, location: RequestLocation, price):
-        super().__init__(id=id, address=address, location=location, price=price)
+    def __init__(self, address: RequestAddress, location: RequestLocation, price):
+        super().__init__(address=address, location=location, price=price)

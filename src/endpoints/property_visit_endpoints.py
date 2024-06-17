@@ -13,7 +13,11 @@ class PropertyVisitEndpoints(FlaskView):
     def get(self, property_visit_id: str):
         # '/property-visit/<property_visit_id>/' (GET)
         response = self.property_visit_repository.get_property_visit(property_visit_id)
-        return jsonify(response), 200
+
+        if response != "Not found":
+            return jsonify(response.dict()), 200
+        else:
+            return jsonify(response), 404
 
     @route('/', methods=['POST'])
     def post(self):

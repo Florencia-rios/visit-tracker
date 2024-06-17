@@ -24,19 +24,23 @@ class EmployeeRepository:
     def get_employee(self, employee_id):
         self.cursor.execute("SELECT * FROM employee WHERE id = ?", (employee_id,))
         row = self.cursor.fetchone()
+
         if row:
             return ResponseEmployee(id=row[0], name=row[1], mail=row[2], document=row[3])
         else:
             return "Not found"
 
     def create_employee(self, employee: RequestEmployee):
-        # TODO Refactor: antes de querer crearlo chequear si existe con el metodo get_employee
+        # TODO Refactor: antes de querer crearlo chequear si existe
         self.cursor.execute("INSERT INTO employee (name, mail, document) VALUES (?, ?, ?)",
                             (employee.name, employee.mail, employee.document))
+
         self.conn.commit()
-        row = self.cursor.fetchone()
-        if row:
-            return ResponseEmployee(id=row[0], name=row[1], mail=row[2], document=row[3])
+
+        row_id = self.cursor.lastrowid
+
+        if row_id:
+            return f"Employee with employeeId {row_id} is created"
         else:
             return "Not created"
 
@@ -44,17 +48,25 @@ class EmployeeRepository:
         self.cursor.execute("UPDATE employee SET name = ?, mail = ?, document = ? WHERE id = ?",
                             (employee.name, employee.mail, employee.document, employee_id))
         self.conn.commit()
-        row = self.cursor.fetchone()
-        if row:
-            return ResponseEmployee(id=row[0], name=row[1], mail=row[2], document=row[3])
+
+        rowcount = self.cursor.rowcount
+
+        if rowcount != 0:
+            return f"Employee with employeeId {employee_id} is updated"
         else:
             return "Not updated"
 
     def delete_employee(self, employee_id):
+        # TODO Refactor: antes de querer crearlo chequear si existe
         self.cursor.execute("DELETE FROM employee WHERE id = ?", (employee_id,))
         self.conn.commit()
 
-        return "Employee deleted"
+        rowcount = self.cursor.rowcount
+
+        if rowcount != 0:
+            return f"Employee with employeeId {employee_id} is deleted"
+        else:
+            return "Not deleted"
 
     def close_connection(self):
         self.conn.close()

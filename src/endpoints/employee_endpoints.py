@@ -15,7 +15,11 @@ class EmployeeEndpoints(FlaskView):
     def get(self, employee_id: str):
         # '/employee/<employee_id>/' (GET)
         response = self.employee_repository.get_employee(employee_id)
-        return jsonify(response), 200
+
+        if response != "Not found":
+            return jsonify(response.dict()), 200
+        else:
+            return jsonify(response), 404
 
     @route('/', methods=['POST'])
     def post(self):
@@ -23,6 +27,7 @@ class EmployeeEndpoints(FlaskView):
         request_data = request.json
         employee = RequestEmployee(**request_data)  # Crea un objeto RequestEmployee a partir de los datos JSON
         response = self.employee_repository.create_employee(employee)
+
         return jsonify(response), 201
 
     @route('/<employee_id>/', methods=['PUT'])
@@ -31,10 +36,12 @@ class EmployeeEndpoints(FlaskView):
         request_data = request.json
         employee = RequestEmployee(**request_data)  # Crea un objeto RequestEmployee a partir de los datos JSON
         response = self.employee_repository.update_employee(employee_id, employee)
+
         return jsonify(response), 200
 
     @route('/<employee_id>/', methods=['DELETE'])
     def delete(self, employee_id: str):
         # '/employee/<employee_id>/' (DELETE)
         response = self.employee_repository.delete_employee(employee_id)
+
         return jsonify(response), 200

@@ -13,5 +13,5 @@ class ResponsePropertyVisit(BaseModel):
     date_time: datetime
     comments: str
 
-    def __init__(self, id: str, employee: ResponseEmployee, property: ResponseProperty, date_time: datetime, comments: str):
-        super().__init__(id=id, employee=employee, property=property, date_time=date_time, commets=comments)
+    def __init__(self, id: int, employee: ResponseEmployee, property: ResponseProperty, date_time: datetime, comments: str):
+        super().__init__(id=id, employee=employee, property=property, date_time=date_time, comments=comments)
