@@ -2,8 +2,8 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
-from src.dto.response_employee import ResponseEmployee
-from src.dto.response_property import ResponseProperty
+from dto.response_employee import ResponseEmployee
+from dto.response_property import ResponseProperty
 
 
 class ResponsePropertyVisit(BaseModel):

@@ -1,13 +1,13 @@
 from flask import jsonify, request
 from flask_classful import FlaskView, route
 
-from src.dto.request_property import RequestProperty
-from src.repository.property_repository import PropertyRepository
+from dto.request_property import RequestProperty
+from repository.property_repository import PropertyRepository
 
 
 class PropertyEndpoints(FlaskView):
     route_base = '/property'
-    property_repository = PropertyRepository("./src/db/visit_tracker.db")
+    property_repository = PropertyRepository()
 
     @route('/<property_id>/', methods=['GET'])
     def get(self, property_id: str):

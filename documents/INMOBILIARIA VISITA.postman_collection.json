@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "b92accad-7160-4774-9281-2bf17fec4bc5",
+		"name": "INMOBILIARIA VISITA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16129501",
+		"_collection_link": "https://red-escape-862797.postman.co/workspace/Claro~4415fdc4-a52f-4a40-973f-648f22aa48e7/collection/16129501-b92accad-7160-4774-9281-2bf17fec4bc5?action=share&source=collection_link&creator=16129501"
+	},
+	"item": [
+		{
+			"name": "CREAR VISITA",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"employee_id\":\"1\",\n    \"property_id\": \"3\",\n    \"comments\": \"comentariospofoigovdivc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/property-visit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"property-visit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET VISITA",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/property-visit/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"property-visit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ACTUALIZAR VISITA",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"employee_id\":\"11\",\n    \"property_id\": \"4\",\n    \"comments\": \"Hola muy bueno!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/property-visit/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"property-visit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BORRAR VISITA",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/property-visit/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"property-visit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

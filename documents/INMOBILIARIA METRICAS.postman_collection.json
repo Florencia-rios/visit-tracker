@@ -1,0 +1,53 @@
+{
+	"info": {
+		"_postman_id": "ed38396f-8ea9-40a6-8cf9-d8330a6c09c5",
+		"name": "INMOBILIARIA METRICAS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16129501",
+		"_collection_link": "https://red-escape-862797.postman.co/workspace/Claro~4415fdc4-a52f-4a40-973f-648f22aa48e7/collection/16129501-ed38396f-8ea9-40a6-8cf9-d8330a6c09c5?action=share&source=collection_link&creator=16129501"
+	},
+	"item": [
+		{
+			"name": "DISTANCIA TOTAL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/metrics-analysis/total-distance-traveled/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"metrics-analysis",
+						"total-distance-traveled",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VISITAS DE UN EMPLEADO",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/metrics-analysis/visit-properties/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"metrics-analysis",
+						"visit-properties",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

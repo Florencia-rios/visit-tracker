@@ -1,11 +1,11 @@
 import sqlite3
 
-from src.dto.request_property import RequestProperty
-from src.dto.response_property import ResponseProperty, ResponseLocation, ResponseAddress
+from dto.request_property import RequestProperty
+from dto.response_property import ResponseProperty, ResponseLocation, ResponseAddress
 
 
 class PropertyRepository:
-    def __init__(self, db_file):
+    def __init__(self, db_file="./db/visit_tracker.db"):
         self.conn = sqlite3.connect(db_file, check_same_thread=False)
         self.cursor = self.conn.cursor()
         self._create_table_if_not_exists()

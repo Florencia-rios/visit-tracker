@@ -1,9 +1,9 @@
 from flask import Flask
 
-from src.endpoints.employee_endpoints import EmployeeEndpoints
-from src.endpoints.metrics_analysis_endpoints import MetricsAnalysisEndpoints
-from src.endpoints.property_endpoints import PropertyEndpoints
-from src.endpoints.property_visit_endpoints import PropertyVisitEndpoints
+from endpoints.employee_endpoints import EmployeeEndpoints
+from endpoints.metrics_analysis_endpoints import MetricsAnalysisEndpoints
+from endpoints.property_endpoints import PropertyEndpoints
+from endpoints.property_visit_endpoints import PropertyVisitEndpoints
 
 app = Flask(__name__)
 

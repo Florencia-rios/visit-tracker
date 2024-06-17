@@ -2,7 +2,7 @@ from typing import List
 
 from pydantic import BaseModel
 
-from src.dto.response_property import ResponseProperty
+from dto.response_property import ResponseProperty
 
 
 class ResponseMetricsVisitsProperties(BaseModel):

@@ -3,13 +3,16 @@ from flask import request
 from flask import jsonify
 from flask_classful import FlaskView, route
 
-from src.dto.request_employee import RequestEmployee
-from src.repository.employee_repository import EmployeeRepository
+from dto.request_employee import RequestEmployee
+from repository.employee_repository import EmployeeRepository
 
 
 class EmployeeEndpoints(FlaskView):
+
     route_base = '/employee'
-    employee_repository = EmployeeRepository("./src/db/visit_tracker.db")
+
+    def __init__(self):
+        self.employee_repository = EmployeeRepository()
 
     @route('/<employee_id>/', methods=['GET'])
     def get(self, employee_id: str):

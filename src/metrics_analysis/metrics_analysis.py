@@ -2,10 +2,10 @@ from typing import List
 
 from haversine import haversine, Unit
 
-from src.dto.response_metrics_visits_properties import ResponseMetricsVisitsProperties
-from src.dto.response_property import ResponseLocation, ResponseProperty
-from src.dto.response_total_distance_traveled import ResponseTotalDistanceTraveled
-from src.repository.calculate_metrics_repository import MetricsRepository
+from dto.response_metrics_visits_properties import ResponseMetricsVisitsProperties
+from dto.response_property import ResponseLocation, ResponseProperty
+from dto.response_total_distance_traveled import ResponseTotalDistanceTraveled
+from repository.metrics_repository import MetricsRepository
 
 
 class MetricsAnalysis:

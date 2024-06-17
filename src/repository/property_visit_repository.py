@@ -1,20 +1,20 @@
 import sqlite3
 from datetime import datetime
 
-from src.dto.request_property_visit import RequestPropertyVisit
-from src.dto.response_property_visit import ResponsePropertyVisit
-from src.repository.employee_repository import EmployeeRepository
-from src.repository.property_repository import PropertyRepository
+from dto.request_property_visit import RequestPropertyVisit
+from dto.response_property_visit import ResponsePropertyVisit
+from repository.employee_repository import EmployeeRepository
+from repository.property_repository import PropertyRepository
 
 
 class PropertyVisitRepository:
-    def __init__(self, db_file):
+    def __init__(self, db_file="./db/visit_tracker.db"):
         self.conn = sqlite3.connect(db_file, check_same_thread=False)
         self.cursor = self.conn.cursor()
         self._create_table_if_not_exists()
 
-        self.employee_repository = EmployeeRepository("./src/db/visit_tracker.db")
-        self.property_repository = PropertyRepository("./src/db/visit_tracker.db")
+        self.employee_repository = EmployeeRepository()
+        self.property_repository = PropertyRepository()
 
     def _create_table_if_not_exists(self):
         self.cursor.execute("""

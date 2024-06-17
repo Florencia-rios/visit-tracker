@@ -1,6 +1,6 @@
 from flask import jsonify
 from flask_classful import FlaskView, route
-from src.metrics_analysis.MetricsAnalysis import MetricsAnalysis
+from metrics_analysis.metrics_analysis import MetricsAnalysis
 
 
 class MetricsAnalysisEndpoints(FlaskView):

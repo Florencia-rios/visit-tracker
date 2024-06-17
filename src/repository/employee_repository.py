@@ -1,11 +1,11 @@
 import sqlite3
 
-from src.dto.request_employee import RequestEmployee
-from src.dto.response_employee import ResponseEmployee
+from dto.request_employee import RequestEmployee
+from dto.response_employee import ResponseEmployee
 
 
 class EmployeeRepository:
-    def __init__(self, db_file):
+    def __init__(self, db_file="./db/visit_tracker.db"):
         self.conn = sqlite3.connect(db_file, check_same_thread=False)
         self.cursor = self.conn.cursor()
         self._create_table_if_not_exists()
@@ -31,7 +31,6 @@ class EmployeeRepository:
             return "Not found"
 
     def create_employee(self, employee: RequestEmployee):
-        # TODO Refactor: antes de querer crearlo chequear si existe
         self.cursor.execute("INSERT INTO employee (name, mail, document) VALUES (?, ?, ?)",
                             (employee.name, employee.mail, employee.document))
 
@@ -57,7 +56,6 @@ class EmployeeRepository:
             return "Not updated"
 
     def delete_employee(self, employee_id):
-        # TODO Refactor: antes de querer crearlo chequear si existe
         self.cursor.execute("DELETE FROM employee WHERE id = ?", (employee_id,))
         self.conn.commit()
 
