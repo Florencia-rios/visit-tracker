@@ -74,3 +74,6 @@ class MetricsRepository:
             properties.append(property)
 
         return properties
+
+    def close_connection(self):
+        self.conn.close()
